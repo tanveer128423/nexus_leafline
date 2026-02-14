@@ -52,6 +52,44 @@ class PlantProvider with ChangeNotifier {
     return _plants.where((plant) => plant.categoryId == categoryId).toList();
   }
 
+  void addPlant(Plant plant) {
+    // Generate a new ID for the plant
+    final maxId = _plants.isEmpty
+        ? 0
+        : _plants.map((p) => p.id ?? 0).reduce((a, b) => a > b ? a : b);
+    final newPlant = Plant(
+      id: maxId + 1,
+      name: plant.name,
+      scientificName: plant.scientificName,
+      description: plant.description,
+      imageUrl: plant.imageUrl,
+      categoryId: plant.categoryId,
+      watering: plant.watering,
+      sunlight: plant.sunlight,
+      soil: plant.soil,
+      careInstructions: plant.careInstructions,
+    );
+    _plants.insert(0, newPlant); // Add to the beginning of the list
+    notifyListeners();
+  }
+
+  void updatePlant(Plant plant) {
+    final index = _plants.indexWhere((p) => p.id == plant.id);
+    if (index != -1) {
+      _plants[index] = plant;
+      notifyListeners();
+    }
+  }
+
+  void deletePlant(int plantId) {
+    _plants.removeWhere((p) => p.id == plantId);
+    // Also remove from favorites if present
+    _favoritePlantIds.remove(plantId);
+    // Remove associated reminders
+    _reminders.removeWhere((r) => r.plantId == plantId);
+    notifyListeners();
+  }
+
   Future<void> addReminder(Reminder reminder) async {
     int id = await _dbService.insertReminder(reminder);
     Reminder newReminder = reminder.copyWith(id: id);

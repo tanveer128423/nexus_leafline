@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -10,6 +11,11 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
+    if (kIsWeb) {
+      // Web doesn't support local notifications, just return
+      return;
+    }
+
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initializationSettings =
@@ -23,6 +29,14 @@ class NotificationService {
     String body,
     DateTime scheduledTime,
   ) async {
+    if (kIsWeb) {
+      // For web demo, just show a snackbar or print to console
+      print(
+        '🔔 Reminder scheduled for ${scheduledTime.toString()}: $title - $body',
+      );
+      return;
+    }
+
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
@@ -44,6 +58,12 @@ class NotificationService {
   }
 
   Future<void> cancelNotification(int id) async {
+    if (kIsWeb) {
+      // For web demo, just print to console
+      print('❌ Reminder cancelled: $id');
+      return;
+    }
+
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 }
