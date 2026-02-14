@@ -42,7 +42,7 @@ List<Plant> samplePlants = [
     description:
         'A hardy indoor plant known for its air-purifying qualities and low maintenance. Also called Mother-in-Law\'s Tongue.',
     imageUrl:
-        'https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?w=400',
+        'https://cdn.shopify.com/s/files/1/0619/1218/7051/files/1661954674-dsc-7058-1.jpg',
     careInstructions: [
       'Water every 2-3 weeks, allowing soil to dry out between waterings.',
       'Prefers indirect sunlight but can tolerate low light.',
@@ -61,7 +61,7 @@ List<Plant> samplePlants = [
     description:
         'An elegant plant with white flowers, excellent for improving indoor air quality. Known for its air-purifying abilities.',
     imageUrl:
-        'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400',
+        'https://cdn.shopify.com/s/files/1/0548/8646/5622/files/ChatGPT_Image_Sep_12_2025_10_02_09_AM.png?v=1757652043',
     careInstructions: [
       'Keep soil moist but not waterlogged.',
       'Thrives in low to medium light.',
@@ -80,7 +80,7 @@ List<Plant> samplePlants = [
     description:
         'A resilient plant that produces plantlets, great for beginners. Known for its spider-like offshoots.',
     imageUrl:
-        'https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?w=400',
+        'https://roguehome.com.au/cdn/shop/files/yxojjcm3lpyvydstkhcp.jpg?v=1751348985&width=1780',
     careInstructions: [
       'Water when top soil is dry.',
       'Bright indirect light preferred.',
@@ -99,7 +99,7 @@ List<Plant> samplePlants = [
     description:
         'A medicinal succulent with healing gel inside its leaves. Perfect for burns and skin care.',
     imageUrl:
-        'https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?w=400',
+        'https://roguehome.com.au/cdn/shop/files/79.286.12_001.jpg?v=1751349888&width=1780',
     careInstructions: [
       'Water deeply but infrequently.',
       'Bright, direct sunlight.',
@@ -118,7 +118,7 @@ List<Plant> samplePlants = [
     description:
         'Aromatic herb used in cooking. Easy to grow indoors or outdoors.',
     imageUrl:
-        'https://images.unsplash.com/photo-1618375569909-3c8616cf09ae?w=400',
+        '../assets/images/basil.png',
     careInstructions: [
       'Water regularly, keep soil moist.',
       'Full sun to partial shade.',
@@ -137,7 +137,7 @@ List<Plant> samplePlants = [
     description:
         'Classic flowering plant symbolizing love. Requires regular care but rewards with beautiful blooms.',
     imageUrl:
-        'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400',
+        'https://images.contentstack.io/v3/assets/bltcedd8dbd5891265b/blt78239e1e4521271c/6668d549ee20f576046dca5c/4738613-Red-Roses-Hero.jpg',
     careInstructions: [
       'Water deeply 2-3 times per week.',
       'Full sun required.',
@@ -156,7 +156,7 @@ List<Plant> samplePlants = [
     description:
         'Fragrant herb with purple flowers. Perfect for gardens and aromatherapy.',
     imageUrl:
-        'https://images.unsplash.com/photo-1592150621744-aca64f48394a?w=400',
+        '../assets/images/Lavender.png',
     careInstructions: [
       'Water sparingly once established.',
       'Full sun essential.',

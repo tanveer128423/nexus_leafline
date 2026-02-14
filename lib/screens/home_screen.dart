@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:math';
 import '../models/plant.dart';
 import '../models/category.dart';
@@ -7,6 +8,7 @@ import '../providers/plant_provider.dart';
 import '../widgets/plant_card.dart';
 import 'plant_detail_screen.dart';
 import 'search_screen.dart';
+import 'add_plant_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -255,140 +257,360 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   // Hero section with featured plant
                   SliverToBoxAdapter(
                     child: Container(
-                      height: size.height * 0.4,
                       margin: EdgeInsets.fromLTRB(24, 32, 24, 0),
                       child: Stack(
                         children: [
-                          // Background with organic shape
-                          Positioned.fill(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(40),
-                                  bottomRight: Radius.circular(40),
-                                  topRight: Radius.circular(20),
-                                  bottomLeft: Radius.circular(20),
-                                ),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFF2D5A3D).withOpacity(0.8),
-                                    Color(0xFF1A3D2A).withOpacity(0.9),
-                                  ],
-                                ),
+                          // Main card background with refined styling
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(32),
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Color(0xFF2D5A3D),
+                                  Color(0xFF1F4530),
+                                  Color(0xFF0F2318),
+                                ],
+                                stops: [0.0, 0.5, 1.0],
                               ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xFF2D5A3D).withOpacity(0.4),
+                                  blurRadius: 32,
+                                  offset: Offset(0, 12),
+                                  spreadRadius: -4,
+                                ),
+                              ],
                             ),
-                          ),
-
-                          // Featured plant content
-                          Padding(
-                            padding: EdgeInsets.all(32),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Text(
-                                    'FEATURED',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 1,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Text(
-                                  plantProvider.plants.isNotEmpty
-                                      ? plantProvider.plants[0].name
-                                      : 'Monstera',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w800,
-                                    height: 1.2,
-                                  ),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  'Discover the perfect care routine for your plants',
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.8),
-                                    fontSize: 16,
-                                    height: 1.4,
-                                  ),
-                                ),
-                                Spacer(),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          if (plantProvider.plants.isNotEmpty) {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PlantDetailScreen(
-                                                      plant: plantProvider
-                                                          .plants[0],
-                                                    ),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white,
-                                          foregroundColor: Color(0xFF2D5A3D),
-                                          padding: EdgeInsets.symmetric(
-                                            vertical: 16,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              25,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(32),
+                              child: Stack(
+                                children: [
+                                  // Subtle pattern overlay
+                                  Positioned.fill(
+                                    child: Opacity(
+                                      opacity: 0.03,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==',
                                             ),
-                                          ),
-                                          elevation: 0,
-                                        ),
-                                        child: Text(
-                                          'Explore Care',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
+                                            repeat: ImageRepeat.repeat,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+
+                                  // Gradient mesh overlay for depth
+                                  Positioned(
+                                    top: -100,
+                                    right: -100,
+                                    child: Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        gradient: RadialGradient(
+                                          colors: [
+                                            Color(0xFF4A7C59).withOpacity(0.2),
+                                            Colors.transparent,
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  // Content
+                                  Padding(
+                                    padding: EdgeInsets.all(36),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Badge with refined design
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 14,
+                                                vertical: 7,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white.withOpacity(
+                                                  0.15,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                  color: Colors.white
+                                                      .withOpacity(0.1),
+                                                  width: 1,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Container(
+                                                    width: 6,
+                                                    height: 6,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color(0xFF7FFF7F),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Color(
+                                                            0xFF7FFF7F,
+                                                          ).withOpacity(0.6),
+                                                          blurRadius: 8,
+                                                          spreadRadius: 2,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  Text(
+                                                    'FEATURED COLLECTION',
+                                                    style: TextStyle(
+                                                      color: Colors.white
+                                                          .withOpacity(0.95),
+                                                      fontSize: 11,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      letterSpacing: 1.2,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                        SizedBox(height: 28),
+
+                                        // Main heading with refined typography
+                                        Text(
+                                          plantProvider.plants.isNotEmpty
+                                              ? plantProvider.plants[0].name
+                                              : 'Monstera',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 42,
+                                            fontWeight: FontWeight.w800,
+                                            height: 1.1,
+                                            letterSpacing: -1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withOpacity(
+                                                  0.3,
+                                                ),
+                                                blurRadius: 20,
+                                                offset: Offset(0, 4),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+                                        SizedBox(height: 16),
+
+                                        // Subtitle with better hierarchy
+                                        Container(
+                                          constraints: BoxConstraints(
+                                            maxWidth: 320,
+                                          ),
+                                          child: Text(
+                                            'Expert care guides and personalized reminders to help your plants thrive',
+                                            style: TextStyle(
+                                              color: Colors.white.withOpacity(
+                                                0.75,
+                                              ),
+                                              fontSize: 15,
+                                              height: 1.6,
+                                              letterSpacing: 0.2,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
+
+                                        SizedBox(height: 32),
+
+                                        // Quick stats row for credibility
+                                        Row(
+                                          children: [
+                                            _buildStatItem(
+                                              '${plantProvider.plants.length}+',
+                                              'Plants',
+                                            ),
+                                            SizedBox(width: 32),
+                                            _buildStatItem('50+', 'Guides'),
+                                            SizedBox(width: 32),
+                                            _buildStatItem('4.9★', 'Rating'),
+                                          ],
+                                        ),
+
+                                        SizedBox(height: 36),
+
+                                        // CTAs with primary + secondary pattern
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: Container(
+                                                height: 54,
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      Colors.white,
+                                                      Color(0xFFF5F5F5),
+                                                    ],
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.15),
+                                                      blurRadius: 16,
+                                                      offset: Offset(0, 6),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: InkWell(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          16,
+                                                        ),
+                                                    onTap: () {
+                                                      if (plantProvider
+                                                          .plants
+                                                          .isNotEmpty) {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PlantDetailScreen(
+                                                                  plant: plantProvider
+                                                                      .plants[0],
+                                                                ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                    child: Center(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'View Details',
+                                                            style: TextStyle(
+                                                              color: Color(
+                                                                0xFF1F4530,
+                                                              ),
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              letterSpacing:
+                                                                  0.3,
+                                                            ),
+                                                          ),
+                                                          SizedBox(width: 8),
+                                                          Icon(
+                                                            Icons
+                                                                .arrow_forward_rounded,
+                                                            color: Color(
+                                                              0xFF1F4530,
+                                                            ),
+                                                            size: 20,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 12),
+                                            Container(
+                                              width: 54,
+                                              height: 54,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white.withOpacity(
+                                                  0.1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                border: Border.all(
+                                                  color: Colors.white
+                                                      .withOpacity(0.2),
+                                                  width: 1.5,
+                                                ),
+                                              ),
+                                              child: Material(
+                                                color: Colors.transparent,
+                                                child: InkWell(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  onTap: () {
+                                                    // Share or bookmark action
+                                                  },
+                                                  child: Icon(
+                                                    Icons.bookmark_border,
+                                                    color: Colors.white,
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
 
-                          // Decorative elements
+                          // Floating plant icon with refined styling
                           Positioned(
-                            top: 20,
-                            right: 20,
+                            top: 24,
+                            right: 24,
                             child: Container(
-                              width: 60,
-                              height: 60,
+                              width: 72,
+                              height: 72,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white.withOpacity(0.1),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.15),
+                                    Colors.white.withOpacity(0.05),
+                                  ],
+                                ),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.15),
+                                  width: 1,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 8),
+                                  ),
+                                ],
                               ),
                               child: Icon(
-                                Icons.eco,
-                                color: Colors.white.withOpacity(0.6),
-                                size: 30,
+                                Icons.spa_rounded,
+                                color: Colors.white.withOpacity(0.9),
+                                size: 36,
                               ),
                             ),
                           ),
@@ -507,6 +729,78 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
         ],
       ),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            colors: [Color(0xFF4A7C59), Color(0xFF2D5A3D)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF4A7C59).withOpacity(0.5),
+              blurRadius: 20,
+              offset: Offset(0, 8),
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+        child: FloatingActionButton(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          onPressed: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    AddPlantScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: Offset(0, 0.1),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
+                        ),
+                      );
+                    },
+              ),
+            );
+          },
+          child: Icon(Icons.add, size: 32, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatItem(String value, String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          value,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.5,
+          ),
+        ),
+        SizedBox(height: 2),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.6),
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 0.3,
+          ),
+        ),
+      ],
     );
   }
 
@@ -525,12 +819,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     return GestureDetector(
       onTap: () {
-        // Filter plants by category
-        final plantProvider = Provider.of<PlantProvider>(
+        Navigator.push(
           context,
-          listen: false,
+          MaterialPageRoute(
+            builder: (context) => SearchScreen(initialCategoryId: category.id),
+          ),
         );
-        // Navigate to filtered view
       },
       child: Container(
         decoration: BoxDecoration(
@@ -609,16 +903,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           children: [
             Expanded(
               flex: 3,
-              child: Container(
-                decoration: BoxDecoration(
+              child: Hero(
+                tag: 'plant_${plant.id}',
+                child: ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                  color: Color(0xFF2D5A3D).withOpacity(0.1),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.image,
-                    color: Color(0xFF4A7C59).withOpacity(0.5),
-                    size: 40,
+                  child: CachedNetworkImage(
+                    imageUrl: plant.imageUrl,
+                    cacheKey: plant.imageUrl,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      color: Color(0xFF2D5A3D).withOpacity(0.1),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF4A7C59),
+                          ),
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      color: Color(0xFF2D5A3D).withOpacity(0.1),
+                      child: Center(
+                        child: Icon(
+                          Icons.image,
+                          color: Color(0xFF4A7C59).withOpacity(0.5),
+                          size: 40,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),

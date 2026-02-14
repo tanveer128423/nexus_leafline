@@ -75,6 +75,7 @@ class _PlantCardState extends State<PlantCard>
                       ),
                       child: CachedNetworkImage(
                         imageUrl: widget.plant.imageUrl,
+                        cacheKey: widget.plant.imageUrl,
                         height: 120,
                         width: double.infinity,
                         fit: BoxFit.cover,
