@@ -12,6 +12,7 @@ import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/plant_identification_screen.dart';
+import 'screens/login_screen.dart';
 import 'services/notification_service.dart';
 
 void main() async {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
               themeProvider.currentTheme.textTheme,
             ),
           ),
-          home: showOnboarding ? OnboardingScreen() : SplashScreen(),
+          home: LoginScreen(showOnboarding: showOnboarding),
           routes: {
             '/home': (context) => MainScreen(),
             '/plant_identification': (context) => PlantIdentificationScreen(),
