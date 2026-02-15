@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 import '../models/plant.dart';
 import '../models/category.dart';
@@ -58,29 +59,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final plantProvider = Provider.of<PlantProvider>(context);
     final size = MediaQuery.of(context).size;
+    final featuredPlant = plantProvider.plants.isNotEmpty
+        ? plantProvider.plants[0]
+        : null;
 
     return Scaffold(
-      backgroundColor: Color(0xFF0A0A0A),
+      backgroundColor: const Color(0xFF0A0A0A),
       body: Stack(
         children: [
-          // Background gradient layers
           Positioned.fill(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFF1A1A1A),
-                    Color(0xFF0D0D0D),
+                    Color(0xFF161B18),
+                    Color(0xFF0C0F0E),
                     Color(0xFF050505),
                   ],
                 ),
               ),
             ),
           ),
-
-          // Floating geometric shapes
           Positioned(
             top: size.height * 0.1,
             right: size.width * 0.1,
@@ -90,13 +91,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 return Transform.scale(
                   scale: _scaleAnimation.value,
                   child: Container(
-                    width: 120,
-                    height: 120,
+                    width: 140,
+                    height: 140,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          Color(0xFF2D5A3D).withOpacity(0.3),
+                          const Color(0xFF2D5A3D).withOpacity(0.35),
                           Colors.transparent,
                         ],
                       ),
@@ -106,20 +107,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               },
             ),
           ),
-
           Positioned(
             bottom: size.height * 0.2,
-            left: size.width * 0.05,
+            left: size.width * 0.06,
             child: Transform.rotate(
               angle: pi / 6,
               child: Container(
-                width: 80,
-                height: 80,
+                width: 90,
+                height: 90,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(22),
                   gradient: LinearGradient(
                     colors: [
-                      Color(0xFF4A7C59).withOpacity(0.2),
+                      const Color(0xFF4A7C59).withOpacity(0.25),
                       Colors.transparent,
                     ],
                   ),
@@ -127,38 +127,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ),
           ),
-
-          // Main content
           SafeArea(
             child: FadeTransition(
               opacity: _fadeAnimation,
               child: CustomScrollView(
                 slivers: [
-                  // Custom header with search
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
                       child: Row(
                         children: [
-                          // Menu button with custom design
                           Container(
                             width: 50,
                             height: 50,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 colors: [Color(0xFF2D5A3D), Color(0xFF4A7C59)],
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color(0xFF2D5A3D).withOpacity(0.3),
+                                  color: const Color(
+                                    0xFF2D5A3D,
+                                  ).withOpacity(0.3),
                                   blurRadius: 10,
-                                  offset: Offset(0, 4),
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.menu,
                                 color: Colors.white,
                                 size: 24,
@@ -167,45 +165,32 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   Scaffold.of(context).openDrawer(),
                             ),
                           ),
-                          SizedBox(width: 16),
-
-                          // Title with custom typography
+                          const SizedBox(width: 16),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'NEXUS',
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w900,
+                                  style: GoogleFonts.spaceGrotesk(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w800,
                                     color: Colors.white,
                                     letterSpacing: 2,
-                                    shadows: [
-                                      Shadow(
-                                        color: Color(
-                                          0xFF4A7C59,
-                                        ).withOpacity(0.5),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
                                   ),
                                 ),
                                 Text(
                                   'LEAF LINE',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w300,
-                                    color: Color(0xFF4A7C59),
+                                  style: GoogleFonts.spaceGrotesk(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xFF4A7C59),
                                     letterSpacing: 3,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-
-                          // Search button with morphing effect
                           Container(
                             width: 50,
                             height: 50,
@@ -213,11 +198,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               shape: BoxShape.circle,
                               color: Colors.white.withOpacity(0.1),
                               border: Border.all(
-                                color: Color(0xFF4A7C59).withOpacity(0.3),
+                                color: const Color(0xFF4A7C59).withOpacity(0.3),
                               ),
                             ),
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.search,
                                 color: Colors.white,
                                 size: 24,
@@ -253,49 +238,48 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-
-                  // Hero section with featured plant
                   SliverToBoxAdapter(
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(24, 32, 24, 0),
-                      child: Stack(
-                        children: [
-                          // Main card background with refined styling
-                          Container(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isWide = constraints.maxWidth >= 720;
+
+                          return Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(32),
-                              gradient: LinearGradient(
+                              borderRadius: BorderRadius.circular(36),
+                              gradient: const LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  Color(0xFF2D5A3D),
-                                  Color(0xFF1F4530),
-                                  Color(0xFF0F2318),
+                                  Color(0xFF2F5B42),
+                                  Color(0xFF1A3526),
+                                  Color(0xFF0B1711),
                                 ],
-                                stops: [0.0, 0.5, 1.0],
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color(0xFF2D5A3D).withOpacity(0.4),
-                                  blurRadius: 32,
-                                  offset: Offset(0, 12),
-                                  spreadRadius: -4,
+                                  color: const Color(
+                                    0xFF2D5A3D,
+                                  ).withOpacity(0.45),
+                                  blurRadius: 40,
+                                  offset: const Offset(0, 18),
+                                  spreadRadius: -6,
                                 ),
                               ],
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(32),
+                              borderRadius: BorderRadius.circular(36),
                               child: Stack(
                                 children: [
-                                  // Subtle pattern overlay
                                   Positioned.fill(
                                     child: Opacity(
-                                      opacity: 0.03,
+                                      opacity: 0.05,
                                       child: Container(
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           image: DecorationImage(
                                             image: NetworkImage(
-                                              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==',
+                                              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9Im1lc2giIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBINCBNNDAgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjbWVzaCkiLz48L3N2Zz4=',
                                             ),
                                             repeat: ImageRepeat.repeat,
                                           ),
@@ -303,330 +287,99 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ),
                                     ),
                                   ),
-
-                                  // Gradient mesh overlay for depth
                                   Positioned(
-                                    top: -100,
-                                    right: -100,
+                                    top: -120,
+                                    right: -60,
                                     child: Container(
-                                      width: 300,
-                                      height: 300,
+                                      width: 340,
+                                      height: 340,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         gradient: RadialGradient(
                                           colors: [
-                                            Color(0xFF4A7C59).withOpacity(0.2),
+                                            const Color(
+                                              0xFF7BCB91,
+                                            ).withOpacity(0.3),
                                             Colors.transparent,
                                           ],
                                         ),
                                       ),
                                     ),
                                   ),
-
-                                  // Content
-                                  Padding(
-                                    padding: EdgeInsets.all(36),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        // Badge with refined design
-                                        Row(
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 14,
-                                                vertical: 7,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white.withOpacity(
-                                                  0.15,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                border: Border.all(
-                                                  color: Colors.white
-                                                      .withOpacity(0.1),
-                                                  width: 1,
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Container(
-                                                    width: 6,
-                                                    height: 6,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Color(0xFF7FFF7F),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Color(
-                                                            0xFF7FFF7F,
-                                                          ).withOpacity(0.6),
-                                                          blurRadius: 8,
-                                                          spreadRadius: 2,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 8),
-                                                  Text(
-                                                    'FEATURED COLLECTION',
-                                                    style: TextStyle(
-                                                      color: Colors.white
-                                                          .withOpacity(0.95),
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      letterSpacing: 1.2,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                  Positioned(
+                                    bottom: -140,
+                                    left: -80,
+                                    child: Container(
+                                      width: 320,
+                                      height: 320,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        gradient: RadialGradient(
+                                          colors: [
+                                            const Color(
+                                              0xFF2D5A3D,
+                                            ).withOpacity(0.35),
+                                            Colors.transparent,
                                           ],
                                         ),
-
-                                        SizedBox(height: 28),
-
-                                        // Main heading with refined typography
-                                        Text(
-                                          plantProvider.plants.isNotEmpty
-                                              ? plantProvider.plants[0].name
-                                              : 'Monstera',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 42,
-                                            fontWeight: FontWeight.w800,
-                                            height: 1.1,
-                                            letterSpacing: -1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black.withOpacity(
-                                                  0.3,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(32),
+                                    child: isWide
+                                        ? Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 3,
+                                                child: _buildHeroContent(
+                                                  context,
+                                                  featuredPlant,
+                                                  plantProvider.plants.length,
                                                 ),
-                                                blurRadius: 20,
-                                                offset: Offset(0, 4),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              Expanded(
+                                                flex: 2,
+                                                child: _buildFeaturedImage(
+                                                  featuredPlant,
+                                                  isWide,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              _buildHeroContent(
+                                                context,
+                                                featuredPlant,
+                                                plantProvider.plants.length,
+                                              ),
+                                              const SizedBox(height: 24),
+                                              _buildFeaturedImage(
+                                                featuredPlant,
+                                                isWide,
                                               ),
                                             ],
                                           ),
-                                        ),
-
-                                        SizedBox(height: 16),
-
-                                        // Subtitle with better hierarchy
-                                        Container(
-                                          constraints: BoxConstraints(
-                                            maxWidth: 320,
-                                          ),
-                                          child: Text(
-                                            'Expert care guides and personalized reminders to help your plants thrive',
-                                            style: TextStyle(
-                                              color: Colors.white.withOpacity(
-                                                0.75,
-                                              ),
-                                              fontSize: 15,
-                                              height: 1.6,
-                                              letterSpacing: 0.2,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ),
-
-                                        SizedBox(height: 32),
-
-                                        // Quick stats row for credibility
-                                        Row(
-                                          children: [
-                                            _buildStatItem(
-                                              '${plantProvider.plants.length}+',
-                                              'Plants',
-                                            ),
-                                            SizedBox(width: 32),
-                                            _buildStatItem('50+', 'Guides'),
-                                            SizedBox(width: 32),
-                                            _buildStatItem('4.9★', 'Rating'),
-                                          ],
-                                        ),
-
-                                        SizedBox(height: 36),
-
-                                        // CTAs with primary + secondary pattern
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 3,
-                                              child: Container(
-                                                height: 54,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Colors.white,
-                                                      Color(0xFFF5F5F5),
-                                                    ],
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.15),
-                                                      blurRadius: 16,
-                                                      offset: Offset(0, 6),
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Material(
-                                                  color: Colors.transparent,
-                                                  child: InkWell(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          16,
-                                                        ),
-                                                    onTap: () {
-                                                      if (plantProvider
-                                                          .plants
-                                                          .isNotEmpty) {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                PlantDetailScreen(
-                                                                  plant: plantProvider
-                                                                      .plants[0],
-                                                                ),
-                                                          ),
-                                                        );
-                                                      }
-                                                    },
-                                                    child: Center(
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            'View Details',
-                                                            style: TextStyle(
-                                                              color: Color(
-                                                                0xFF1F4530,
-                                                              ),
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              letterSpacing:
-                                                                  0.3,
-                                                            ),
-                                                          ),
-                                                          SizedBox(width: 8),
-                                                          Icon(
-                                                            Icons
-                                                                .arrow_forward_rounded,
-                                                            color: Color(
-                                                              0xFF1F4530,
-                                                            ),
-                                                            size: 20,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 12),
-                                            Container(
-                                              width: 54,
-                                              height: 54,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white.withOpacity(
-                                                  0.1,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                border: Border.all(
-                                                  color: Colors.white
-                                                      .withOpacity(0.2),
-                                                  width: 1.5,
-                                                ),
-                                              ),
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                child: InkWell(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  onTap: () {
-                                                    // Share or bookmark action
-                                                  },
-                                                  child: Icon(
-                                                    Icons.bookmark_border,
-                                                    color: Colors.white,
-                                                    size: 24,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-
-                          // Floating plant icon with refined styling
-                          Positioned(
-                            top: 24,
-                            right: 24,
-                            child: Container(
-                              width: 72,
-                              height: 72,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Colors.white.withOpacity(0.15),
-                                    Colors.white.withOpacity(0.05),
-                                  ],
-                                ),
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.15),
-                                  width: 1,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 20,
-                                    offset: Offset(0, 8),
-                                  ),
-                                ],
-                              ),
-                              child: Icon(
-                                Icons.spa_rounded,
-                                color: Colors.white.withOpacity(0.9),
-                                size: 36,
-                              ),
-                            ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
                   ),
-
-                  // Categories section with asymmetric layout
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(24, 48, 24, 24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'EXPLORE',
                             style: TextStyle(
                               color: Color(0xFF4A7C59),
@@ -635,8 +388,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               letterSpacing: 2,
                             ),
                           ),
-                          SizedBox(height: 8),
-                          Text(
+                          const SizedBox(height: 8),
+                          const Text(
                             'Plant Categories',
                             style: TextStyle(
                               color: Colors.white,
@@ -648,34 +401,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-
-                  // Categories in a creative layout
                   SliverToBoxAdapter(
-                    child: Container(
+                    child: SizedBox(
                       height: 200,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
                         itemCount: plantProvider.categories.length,
                         itemBuilder: (context, index) {
                           final category = plantProvider.categories[index];
                           return Container(
                             width: 160,
-                            margin: EdgeInsets.only(right: 16),
+                            margin: const EdgeInsets.only(right: 16),
                             child: _buildCategoryCard(context, category, index),
                           );
                         },
                       ),
                     ),
                   ),
-
-                  // Recent plants section
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(24, 48, 24, 24),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'RECENT',
                             style: TextStyle(
                               color: Color(0xFF4A7C59),
@@ -684,14 +433,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               letterSpacing: 2,
                             ),
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Expanded(
                             child: Container(
                               height: 1,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
-                                    Color(0xFF4A7C59).withOpacity(0.5),
+                                    const Color(0xFF4A7C59).withOpacity(0.5),
                                     Colors.transparent,
                                   ],
                                 ),
@@ -702,10 +451,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-
-                  // Plants in a staggered grid
                   SliverPadding(
-                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     sliver: SliverGrid(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -720,9 +467,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       }, childCount: min(6, plantProvider.plants.length)),
                     ),
                   ),
-
-                  // Bottom spacing
-                  SliverToBoxAdapter(child: SizedBox(height: 100)),
+                  const SliverToBoxAdapter(child: SizedBox(height: 100)),
                 ],
               ),
             ),
@@ -732,16 +477,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       floatingActionButton: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [Color(0xFF4A7C59), Color(0xFF2D5A3D)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFF4A7C59).withOpacity(0.5),
+              color: const Color(0xFF4A7C59).withOpacity(0.5),
               blurRadius: 20,
-              offset: Offset(0, 8),
+              offset: const Offset(0, 8),
               spreadRadius: 2,
             ),
           ],
@@ -761,7 +506,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         opacity: animation,
                         child: SlideTransition(
                           position: Tween<Offset>(
-                            begin: Offset(0, 0.1),
+                            begin: const Offset(0, 0.1),
                             end: Offset.zero,
                           ).animate(animation),
                           child: child,
@@ -771,10 +516,357 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             );
           },
-          child: Icon(Icons.add, size: 32, color: Colors.white),
+          child: const Icon(Icons.add, size: 32, color: Colors.white),
         ),
       ),
     );
+  }
+
+  Widget _buildHeroContent(BuildContext context, Plant? plant, int plantCount) {
+    final name = plant?.name ?? 'Monstera Deliciosa';
+    final scientific = plant?.scientificName ?? 'Monstera deliciosa';
+    final watering = plant?.watering ?? 'Moderate';
+    final sunlight = plant?.sunlight ?? 'Bright';
+    final soil = plant?.soil ?? 'Well-drained';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.14),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: Colors.white.withOpacity(0.2)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFF9EF7B6),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF9EF7B6).withOpacity(0.6),
+                      blurRadius: 8,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Text(
+                'THIS WEEK\'S FEATURE',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 18),
+        Text(
+          name,
+          style: GoogleFonts.playfairDisplay(
+            color: Colors.white,
+            fontSize: 40,
+            fontWeight: FontWeight.w700,
+            height: 1.1,
+            letterSpacing: -0.6,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          scientific,
+          style: GoogleFonts.spaceGrotesk(
+            color: Colors.white.withOpacity(0.7),
+            fontSize: 14,
+            fontStyle: FontStyle.italic,
+            letterSpacing: 0.4,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Craft a thriving indoor oasis with curated care guides and smart reminders tailored to your plants.',
+          style: GoogleFonts.dmSans(
+            color: Colors.white.withOpacity(0.72),
+            fontSize: 15,
+            height: 1.6,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            _buildHeroPill('Water', watering),
+            _buildHeroPill('Light', sunlight),
+            _buildHeroPill('Soil', soil),
+          ],
+        ),
+        const SizedBox(height: 24),
+        Row(
+          children: [
+            _buildStatItem('${plantCount}+', 'Plants'),
+            const SizedBox(width: 24),
+            _buildStatItem('50+', 'Guides'),
+            const SizedBox(width: 24),
+            _buildStatItem('4.9★', 'Rating'),
+          ],
+        ),
+        const SizedBox(height: 28),
+        Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: SizedBox(
+                height: 52,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: plant == null
+                      ? null
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PlantDetailScreen(plant: plant),
+                            ),
+                          );
+                        },
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFFFFFFF), Color(0xFFE4F2E8)],
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'View Details',
+                        style: TextStyle(
+                          color: Color(0xFF1F4530),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              flex: 2,
+              child: SizedBox(
+                height: 52,
+                child: OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    side: BorderSide(color: Colors.white.withOpacity(0.35)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            AddPlantScreen(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(0, 0.06),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                ),
+                              );
+                            },
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add_circle_outline, size: 18),
+                  label: const Text(
+                    'Add Plant',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHeroPill(String label, String value) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0F1A14).withOpacity(0.55),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: Colors.white.withOpacity(0.15)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            label.toUpperCase(),
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.55),
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.6,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeaturedImage(Plant? plant, bool isWide) {
+    final imageUrl = plant?.imageUrl;
+    final imageSize = isWide ? 240.0 : 210.0;
+
+    return SizedBox(
+      height: imageSize + 40,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: imageSize + 40,
+            height: imageSize + 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  const Color(0xFF7BCB91).withOpacity(0.25),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: imageSize,
+            height: imageSize,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(28),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.35),
+                  blurRadius: 24,
+                  offset: const Offset(0, 12),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(28),
+              child: imageUrl == null
+                  ? Container(
+                      color: const Color(0xFF101915),
+                      child: const Icon(
+                        Icons.local_florist,
+                        color: Colors.white54,
+                        size: 48,
+                      ),
+                    )
+                  : _buildPlantImage(imageUrl),
+            ),
+          ),
+          Positioned(
+            right: 0,
+            bottom: 8,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0F1A14).withOpacity(0.85),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: Colors.white.withOpacity(0.15)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Care score',
+                    style: TextStyle(color: Colors.white70, fontSize: 11),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    '92%',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPlantImage(String imageUrl) {
+    if (imageUrl.startsWith('http')) {
+      return CachedNetworkImage(
+        imageUrl: imageUrl,
+        cacheKey: imageUrl,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => Container(
+          color: const Color(0xFF101915),
+          child: const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(Color(0xFF7BCB91)),
+            ),
+          ),
+        ),
+        errorWidget: (context, url, error) => Container(
+          color: const Color(0xFF101915),
+          child: const Icon(
+            Icons.local_florist,
+            color: Colors.white54,
+            size: 48,
+          ),
+        ),
+      );
+    }
+
+    final assetPath = imageUrl.replaceFirst('../', '');
+    return Image.asset(assetPath, fit: BoxFit.cover);
   }
 
   Widget _buildStatItem(String value, String label) {
