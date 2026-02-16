@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'admin_login_screen.dart';
 import 'onboarding_screen.dart';
 import 'splash_screen.dart';
 
@@ -419,6 +420,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                     style: TextStyle(
                                       color: Colors.white.withOpacity(0.5),
                                       fontSize: 12,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => AdminLoginScreen(
+                                            onBack: () =>
+                                                Navigator.of(context).pop(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Admin Login',
+                                      style: TextStyle(color: Colors.white70),
                                     ),
                                   ),
                                 ],

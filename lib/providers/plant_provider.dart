@@ -19,7 +19,9 @@ class PlantProvider with ChangeNotifier {
     _loadFavorites();
   }
 
-  List<Plant> get plants => _plants;
+  List<Plant> get plants => _plants.where((plant) => plant.isApproved).toList();
+  List<Plant> get pendingPlants =>
+      _plants.where((plant) => !plant.isApproved).toList();
   List<Category> get categories => _categories;
   List<Reminder> get reminders => _reminders;
   List<Plant> get favoritePlants =>
@@ -53,6 +55,14 @@ class PlantProvider with ChangeNotifier {
   }
 
   void addPlant(Plant plant) {
+    _addPlantInternal(plant, isApproved: true);
+  }
+
+  void submitPlant(Plant plant) {
+    _addPlantInternal(plant, isApproved: false);
+  }
+
+  void _addPlantInternal(Plant plant, {required bool isApproved}) {
     // Generate a new ID for the plant
     final maxId = _plants.isEmpty
         ? 0
@@ -68,8 +78,37 @@ class PlantProvider with ChangeNotifier {
       sunlight: plant.sunlight,
       soil: plant.soil,
       careInstructions: plant.careInstructions,
+      isApproved: isApproved,
     );
     _plants.insert(0, newPlant); // Add to the beginning of the list
+    notifyListeners();
+  }
+
+  void approvePlant(int plantId) {
+    final index = _plants.indexWhere((p) => p.id == plantId);
+    if (index == -1) {
+      return;
+    }
+
+    final plant = _plants[index];
+    _plants[index] = Plant(
+      id: plant.id,
+      name: plant.name,
+      scientificName: plant.scientificName,
+      description: plant.description,
+      imageUrl: plant.imageUrl,
+      categoryId: plant.categoryId,
+      watering: plant.watering,
+      sunlight: plant.sunlight,
+      soil: plant.soil,
+      careInstructions: plant.careInstructions,
+      isApproved: true,
+    );
+    notifyListeners();
+  }
+
+  void rejectPlant(int plantId) {
+    _plants.removeWhere((p) => p.id == plantId);
     notifyListeners();
   }
 
