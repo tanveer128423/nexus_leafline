@@ -197,6 +197,20 @@ class _MainScreenState extends State<MainScreen> {
                 );
               },
             ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (_) => const LoginScreen(showOnboarding: false),
+                  ),
+                  (route) => false,
+                );
+              },
+            ),
           ],
         ),
       ),

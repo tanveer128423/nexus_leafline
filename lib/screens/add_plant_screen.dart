@@ -77,7 +77,7 @@ class _AddPlantScreenState extends State<AddPlantScreen>
         careInstructions: careInstructions,
       );
 
-      plantProvider.addPlant(newPlant);
+      plantProvider.submitPlant(newPlant);
 
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
@@ -87,7 +87,7 @@ class _AddPlantScreenState extends State<AddPlantScreen>
               Icon(Icons.check_circle, color: Colors.white),
               SizedBox(width: 12),
               Text(
-                'Plant added successfully!',
+                'Submitted for admin approval.',
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ],

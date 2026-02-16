@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
-import 'home_screen.dart';
+import '../main.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -110,11 +110,11 @@ class _SplashScreenState extends State<SplashScreen>
       _morphController.forward();
     });
 
-    // Navigate to home screen
+    // Navigate to main screen with drawer
     Timer(Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(),
+          pageBuilder: (context, animation, secondaryAnimation) => MainScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },

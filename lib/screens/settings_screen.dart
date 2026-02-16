@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
+import 'admin_login_screen.dart';
+import 'login_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -69,6 +71,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: Text('Help & Support'),
             subtitle: Text('Get help with the app'),
             onTap: () => _showHelpDialog(context),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('Admin Login'),
+            subtitle: Text('Review pending plant submissions'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => AdminLoginScreen(
+                    onBack: () => Navigator.of(context).pop(),
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Logout'),
+            subtitle: Text('Return to the login screen'),
+            onTap: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (_) => const LoginScreen(showOnboarding: false),
+                ),
+                (route) => false,
+              );
+            },
           ),
         ],
       ),

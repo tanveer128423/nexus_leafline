@@ -9,6 +9,7 @@ class Plant {
   final String watering;
   final String sunlight;
   final String soil;
+  final bool isApproved;
 
   Plant({
     this.id,
@@ -21,6 +22,7 @@ class Plant {
     required this.watering,
     required this.sunlight,
     required this.soil,
+    this.isApproved = true,
   });
 
   Map<String, dynamic> toMap() {
@@ -35,6 +37,7 @@ class Plant {
       'watering': watering,
       'sunlight': sunlight,
       'soil': soil,
+      'isApproved': isApproved ? 1 : 0,
     };
   }
 
@@ -50,6 +53,7 @@ class Plant {
       watering: map['watering'],
       sunlight: map['sunlight'],
       soil: map['soil'],
+      isApproved: (map['isApproved'] ?? 1) == 1,
     );
   }
 }

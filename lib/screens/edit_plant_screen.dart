@@ -98,6 +98,7 @@ class _EditPlantScreenState extends State<EditPlantScreen>
         sunlight: _sunlightController.text,
         soil: _soilController.text,
         careInstructions: careInstructions,
+        isApproved: widget.plant.isApproved,
       );
 
       plantProvider.updatePlant(updatedPlant);
