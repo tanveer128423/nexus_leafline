@@ -42,7 +42,7 @@ List<Plant> samplePlants = [
     description:
         'A hardy indoor plant known for its air-purifying qualities and low maintenance. Also called Mother-in-Law\'s Tongue.',
     imageUrl:
-        'https://cdn.shopify.com/s/files/1/0619/1218/7051/files/1661954674-dsc-7058-1.jpg',
+        '../assets/images/Snake.png',
     careInstructions: [
       'Water every 2-3 weeks, allowing soil to dry out between waterings.',
       'Prefers indirect sunlight but can tolerate low light.',
@@ -61,7 +61,7 @@ List<Plant> samplePlants = [
     description:
         'An elegant plant with white flowers, excellent for improving indoor air quality. Known for its air-purifying abilities.',
     imageUrl:
-        'https://cdn.shopify.com/s/files/1/0548/8646/5622/files/ChatGPT_Image_Sep_12_2025_10_02_09_AM.png?v=1757652043',
+        'https://americanplantexchange.com/cdn/shop/products/peacelily-1.jpg?v=1672881763&width=990',
     careInstructions: [
       'Keep soil moist but not waterlogged.',
       'Thrives in low to medium light.',
@@ -118,7 +118,7 @@ List<Plant> samplePlants = [
     description:
         'Aromatic herb used in cooking. Easy to grow indoors or outdoors.',
     imageUrl:
-        '../assets/images/basil.png',
+        '../assets/images/Basil.png',
     careInstructions: [
       'Water regularly, keep soil moist.',
       'Full sun to partial shade.',
@@ -175,7 +175,7 @@ List<Plant> samplePlants = [
     description:
         'Lucky plant also known as money tree. Very low maintenance succulent.',
     imageUrl:
-        'https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?w=400',
+        'https://ucarecdn.com/b8a7cd75-09ba-44f3-ae42-ca759a429b75/-/format/auto/-/preview/3000x3000/-/quality/lighter/ISS_3483_12683.jpg',
     careInstructions: [
       'Water when soil is completely dry.',
       'Bright light, some direct sun.',
@@ -213,7 +213,7 @@ List<Plant> samplePlants = [
     description:
         'Refreshing herb used in teas and cooking. Grows quickly and can be invasive.',
     imageUrl:
-        'https://images.unsplash.com/photo-1628556429666-1193fb6716a3?w=400',
+        'https://nurserylive.com/cdn/shop/products/nurserylive-g-mexican-mint-patharchur-ajwain-leaves-plant_600x600_b19dd3a5-22ed-4495-88d9-c6662276b46b.jpg?v=1751599687',
     careInstructions: [
       'Keep soil consistently moist.',
       'Partial shade to full sun.',
