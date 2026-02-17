@@ -20,6 +20,7 @@ void main() async {
   await NotificationService().init();
   final prefs = await SharedPreferences.getInstance();
   final showOnboarding = prefs.getBool('showOnboarding') ?? true;
+  final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
 
   runApp(
     MultiProvider(
@@ -27,15 +28,16 @@ void main() async {
         ChangeNotifierProvider(create: (_) => PlantProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
-      child: MyApp(showOnboarding: showOnboarding),
+      child: MyApp(showOnboarding: showOnboarding, isLoggedIn: isLoggedIn),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
   final bool showOnboarding;
+  final bool isLoggedIn;
 
-  MyApp({required this.showOnboarding});
+  MyApp({required this.showOnboarding, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,9 @@ class MyApp extends StatelessWidget {
               titleSmall: displayTextTheme.titleSmall,
             ),
           ),
-          home: LoginScreen(showOnboarding: showOnboarding),
+          home: isLoggedIn
+              ? MainScreen()
+              : LoginScreen(showOnboarding: showOnboarding),
           routes: {
             '/home': (context) => MainScreen(),
             '/plant_identification': (context) => PlantIdentificationScreen(),
@@ -223,8 +227,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Logout'),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setBool('is_logged_in', false);
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (_) => const LoginScreen(showOnboarding: false),

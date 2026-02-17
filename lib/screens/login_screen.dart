@@ -19,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   static const _prefsEmailKey = 'local_email';
   static const _prefsPasswordKey = 'local_password';
+  static const _prefsLoggedInKey = 'is_logged_in';
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -51,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password == savedPassword;
 
     if (isLocalMatch || (email == _validEmail && password == _validPassword)) {
+      await prefs.setBool(_prefsLoggedInKey, true);
       final nextScreen = widget.showOnboarding
           ? OnboardingScreen()
           : SplashScreen();
