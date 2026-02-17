@@ -31,7 +31,7 @@ class AppColors {
 }
 
 class AppTypography {
-  static const fontFamily = 'Inter'; // Modern sans-serif
+  static const fontFamily = 'Manrope'; // Modern sans-serif
 
   // Display styles
   static const display = TextStyle(

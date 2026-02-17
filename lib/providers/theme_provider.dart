@@ -49,7 +49,7 @@ class ThemeProvider with ChangeNotifier {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      filled: true,
+      filled: false,
       fillColor: Colors.white,
       contentPadding: const EdgeInsets.all(AppSpacing.lg),
       border: OutlineInputBorder(
@@ -135,7 +135,7 @@ class ThemeProvider with ChangeNotifier {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      filled: true,
+      filled: false,
       fillColor: AppColors.darkCard,
       contentPadding: const EdgeInsets.all(AppSpacing.lg),
       border: OutlineInputBorder(

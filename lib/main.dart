@@ -41,11 +41,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
+        final baseTextTheme = GoogleFonts.manropeTextTheme(
+          themeProvider.currentTheme.textTheme,
+        );
+        final displayTextTheme = GoogleFonts.playfairDisplayTextTheme(
+          themeProvider.currentTheme.textTheme,
+        );
+
         return MaterialApp(
           title: 'Nexus Leafline',
           theme: themeProvider.currentTheme.copyWith(
-            textTheme: GoogleFonts.robotoTextTheme(
-              themeProvider.currentTheme.textTheme,
+            textTheme: baseTextTheme.copyWith(
+              displayLarge: displayTextTheme.displayLarge,
+              displayMedium: displayTextTheme.displayMedium,
+              displaySmall: displayTextTheme.displaySmall,
+              headlineLarge: displayTextTheme.headlineLarge,
+              headlineMedium: displayTextTheme.headlineMedium,
+              headlineSmall: displayTextTheme.headlineSmall,
+              titleLarge: displayTextTheme.titleLarge,
+              titleMedium: displayTextTheme.titleMedium,
+              titleSmall: displayTextTheme.titleSmall,
             ),
           ),
           home: LoginScreen(showOnboarding: showOnboarding),
